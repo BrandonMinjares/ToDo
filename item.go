@@ -54,6 +54,11 @@ func EditEvent(id int, name *string, description *string, completed *bool) error
 	return nil
 }
 
-func DeleteEvent(id int) {
+func DeleteEvent(id int) error {
+	_, exists := todoMap[id]
+	if !exists {
+		return fmt.Errorf("event with ID %d not found", id)
+	}
 	delete(todoMap, id)
+	return nil
 }

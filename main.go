@@ -111,7 +111,11 @@ func main() {
 				return
 			}
 
-			DeleteEvent(id)
+			err = DeleteEvent(id)
+			if err != nil {
+				fmt.Println("Something went wrong with deletion.")
+				return
+			}
 			fmt.Printf("Event with ID %d deleted.\n", id)
 
 		default:
