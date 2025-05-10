@@ -11,6 +11,7 @@ import (
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)
+	var nextID = 1
 
 	for {
 		fmt.Print("Type 'create' to create new item, 'show' to show all items, 'delete' to delete an item,'exit' to quit): ")
@@ -28,13 +29,14 @@ func main() {
 			description = strings.TrimSpace(description)
 
 			e := Event{
-				ID:          len(todoMap) + 1,
+				ID:          nextID,
 				Name:        name,
 				Description: description,
 				StartTime:   time.Now(),
 				Completed:   false,
 			}
 
+			nextID++
 			CreateEvent(e)
 
 		case "show":
