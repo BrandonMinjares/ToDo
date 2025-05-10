@@ -12,7 +12,7 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 
 	for {
-		fmt.Print("Type 'create' to create new item, 'show' to show all items, 'delete' to delete an item,'exit' to quit): ")
+		fmt.Print("Type 'create' to create new item, 'show' to show all items, 'edit' to update item, 'delete' to delete an item, 'exit' to quit: ")
 		input, _ := reader.ReadString('\n')
 		input = strings.TrimSpace(input)
 
@@ -33,7 +33,7 @@ func main() {
 
 			if len(events) == 0 {
 				fmt.Println("No events")
-				return
+				continue
 			}
 
 			for _, event := range events {
@@ -60,7 +60,42 @@ func main() {
 					fmt.Println("Completed: Yes")
 				}
 
-				fmt.Println("What would you like to edit?")
+				fmt.Println("What would you like to edit? Name, description, or completed")
+				field, _ := reader.ReadString('\n')
+				field = strings.TrimSpace(field)
+
+				var (
+					newName        *string
+					newDescription *string
+					newCompleted   *bool
+				)
+
+				switch field {
+				case "name":
+					fmt.Print("Enter new name: ")
+					val, _ := reader.ReadString('\n')
+					val = strings.TrimSpace(val)
+					newName = &val
+				case "description":
+					fmt.Print("Enter new description: ")
+					val, _ := reader.ReadString('\n')
+					val = strings.TrimSpace(val)
+					newDescription = &val
+				case "completed":
+					val := true
+					newCompleted = &val
+				default:
+					fmt.Println("Unknown field")
+					continue
+				}
+
+				err = EditEvent(id, newName, newDescription, newCompleted)
+				if err != nil {
+					fmt.Println("Error updating event:", err)
+				} else {
+					fmt.Println("Event updated successfully.")
+				}
+
 			} else {
 				fmt.Println("ID not found")
 			}
@@ -77,6 +112,7 @@ func main() {
 			}
 
 			DeleteEvent(id)
+			fmt.Printf("Event with ID %d deleted.\n", id)
 
 		default:
 			fmt.Println("Goodbye!")
