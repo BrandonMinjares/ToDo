@@ -14,7 +14,11 @@ type Event struct {
 
 var todoList []Event
 
-func CreateItem(event Event) int {
+func CreateEvent(event Event) Event {
 	todoList = append(todoList, event)
-	return len(todoList)
+	return event
+}
+
+func GetEvents() []Event {
+	return todoList
 }

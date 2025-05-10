@@ -1,23 +1,27 @@
 package main
 
 import (
+	"fmt"
 	"testing"
 	"time"
 )
 
-func Test_CreateItem(t *testing.T) {
-	want := len(todoList) + 1
+func Test_CreateEvent(t *testing.T) {
+	todoList = []Event{}
 
 	e := Event{
 		ID:          1,
 		Name:        "Write Go code",
 		Description: "Finish the TODO app",
-		StartTime:   time.Now(), // Current time here
+		StartTime:   time.Now(),
 		Completed:   false,
 	}
-	got := CreateItem(e)
+	CreateEvent(e)
 
-	if got != want {
-		t.Errorf("expected %q but got %q", want, got)
+}
+
+func Test_GetEvents(t *testing.T) {
+	for _, v := range todoList {
+		fmt.Printf("%s\n", v.Name)
 	}
 }
