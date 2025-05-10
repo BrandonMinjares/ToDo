@@ -12,13 +12,18 @@ type Event struct {
 	Completed   bool
 }
 
-var todoList []Event
+var todoMap = make(map[int]Event)
 
 func CreateEvent(event Event) Event {
-	todoList = append(todoList, event)
+	todoMap[event.ID] = event
+
 	return event
 }
 
-func GetEvents() []Event {
-	return todoList
+func GetEvents() map[int]Event {
+	return todoMap
+}
+
+func DeleteEvent(id int) {
+	delete(todoMap, id)
 }
