@@ -13,7 +13,7 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 
 	for {
-		fmt.Print("Enter something (type 'exit' to quit): ")
+		fmt.Print("Type 'create' to create new item, 'show' to show all items, 'delete' to delete an item,'exit' to quit): ")
 		input, _ := reader.ReadString('\n')
 		input = strings.TrimSpace(input)
 
@@ -47,6 +47,31 @@ func main() {
 
 			for _, event := range events {
 				fmt.Println("ID: " + strconv.Itoa(event.ID) + " " + event.Name)
+			}
+		case "edit":
+			fmt.Print("Enter event you would like to edit by ID: ")
+			ID, _ := reader.ReadString('\n')
+			ID = strings.TrimSpace(ID)
+			id, err := strconv.Atoi(ID)
+			if err != nil {
+				fmt.Println("Invalid input. Please enter a number.")
+				return
+			}
+
+			if _, exists := todoMap[id]; exists {
+				fmt.Println("Id: " + ID)
+				fmt.Println("Name: " + todoMap[id].Name)
+				fmt.Println("Description: " + todoMap[id].Description)
+
+				if !todoMap[id].Completed {
+					fmt.Println("Completed: No")
+				} else {
+					fmt.Println("Completed: Yes")
+				}
+
+				fmt.Println("What would you like to edit?")
+			} else {
+				fmt.Println("ID not found")
 			}
 
 		case "delete":
