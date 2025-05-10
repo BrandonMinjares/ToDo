@@ -13,10 +13,19 @@ type Event struct {
 }
 
 var todoMap = make(map[int]Event)
+var nextID = 1
 
-func CreateEvent(event Event) Event {
-	todoMap[event.ID] = event
+func CreateEvent(name string, description string) Event {
+	event := Event{
+		ID:          nextID,
+		Name:        name,
+		Description: description,
+		StartTime:   time.Now(),
+		Completed:   false,
+	}
 
+	todoMap[nextID] = event
+	nextID++
 	return event
 }
 

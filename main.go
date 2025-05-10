@@ -6,12 +6,10 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"time"
 )
 
 func main() {
 	reader := bufio.NewReader(os.Stdin)
-	var nextID = 1
 
 	for {
 		fmt.Print("Type 'create' to create new item, 'show' to show all items, 'delete' to delete an item,'exit' to quit): ")
@@ -28,16 +26,7 @@ func main() {
 			description, _ := reader.ReadString('\n')
 			description = strings.TrimSpace(description)
 
-			e := Event{
-				ID:          nextID,
-				Name:        name,
-				Description: description,
-				StartTime:   time.Now(),
-				Completed:   false,
-			}
-
-			nextID++
-			CreateEvent(e)
+			CreateEvent(name, description)
 
 		case "show":
 			events := GetEvents()
