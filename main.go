@@ -118,9 +118,12 @@ func main() {
 			}
 			fmt.Printf("Event with ID %d deleted.\n", id)
 
+		case "exit":
+			fmt.Println("Would you like to save file first? (y/n)")
+
 		default:
-			fmt.Println("Goodbye!")
-			return
+			fmt.Println("Not Valid entry. Please try again.")
+			continue
 		}
 	}
 }

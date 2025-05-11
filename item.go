@@ -1,7 +1,9 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"os"
 	"time"
 )
 
@@ -61,4 +63,26 @@ func DeleteEvent(id int) error {
 	}
 	delete(todoMap, id)
 	return nil
+}
+
+func EncodeEvents() error {
+	jsonBytes, err := json.MarshalIndent(todoMap, "", "  ")
+	if err != nil {
+		fmt.Println("Error marshalling JSON:", err)
+		return err
+	}
+
+	// Print to terminal
+	fmt.Println(string(jsonBytes))
+
+	// Open file for writing
+	file, err := os.OpenFile("big_encode.json", os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	// Write JSON bytes directly
+	_, err = file.Write(jsonBytes)
+	return err
 }
