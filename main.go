@@ -89,7 +89,7 @@ func main() {
 					continue
 				}
 
-				err = EditEvent(id, newName, newDescription, newCompleted)
+				err = todoMap[id].EditEvent(id, newName, newDescription, newCompleted)
 				if err != nil {
 					fmt.Println("Error updating event:", err)
 				} else {

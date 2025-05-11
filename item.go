@@ -34,7 +34,7 @@ func GetEvents() map[int]Event {
 	return todoMap
 }
 
-func EditEvent(id int, name *string, description *string, completed *bool) error {
+func (e Event) EditEvent(id int, name *string, description *string, completed *bool) error {
 	event, exists := todoMap[id]
 	if !exists {
 		return fmt.Errorf("event with ID %d not found", id)
