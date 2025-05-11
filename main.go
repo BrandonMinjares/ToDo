@@ -37,7 +37,7 @@ func main() {
 			}
 
 			for _, event := range events {
-				fmt.Println("ID: " + strconv.Itoa(event.ID) + " " + event.Name)
+				fmt.Println("ID: " + strconv.Itoa(event.ID) + " " + event.Name + " " + event.Description)
 			}
 		case "edit":
 			fmt.Print("Enter event you would like to edit by ID: ")
@@ -120,6 +120,7 @@ func main() {
 
 		default:
 			fmt.Println("Goodbye!")
+			return
 		}
 	}
 }
