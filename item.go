@@ -85,5 +85,17 @@ func EncodeEvents() error {
 }
 
 func DecodeEvents(path string) error {
+	file, err := os.Open(path)
+	if err != nil {
+		return fmt.Errorf("could not open file: %w", err)
+	}
+	defer file.Close()
+
+	decoder := json.NewDecoder(file)
+	err = decoder.Decode(&todoMap)
+	if err != nil {
+		return fmt.Errorf("could not decode JSON: %w", err)
+	}
+
 	return nil
 }

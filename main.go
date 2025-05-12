@@ -12,10 +12,10 @@ func main() {
 	reader := bufio.NewReader(os.Stdin)
 
 	fmt.Print(`
-				Would you like to:
-				1. Create a new todo list
-				2. Load an existing todo list from a file
-				> `)
+	Would you like to:
+	1. Create a new todo list
+	2. Load an existing todo list from a file
+	> `)
 	input, _ := reader.ReadString('\n')
 	input = strings.TrimSpace(input)
 
@@ -168,5 +168,10 @@ func CreateToDO() {
 }
 
 func promptForFilePath() string {
-	return "test"
+	reader := bufio.NewReader(os.Stdin)
+
+	fmt.Print("Enter the name of the file: ")
+	path, _ := reader.ReadString('\n')
+	path = strings.TrimSpace(path)
+	return path
 }
