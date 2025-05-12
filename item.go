@@ -72,9 +72,6 @@ func EncodeEvents() error {
 		return err
 	}
 
-	// Print to terminal
-	fmt.Println(string(jsonBytes))
-
 	// Open file for writing
 	file, err := os.OpenFile("big_encode.json", os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
 	if err != nil {
@@ -85,4 +82,8 @@ func EncodeEvents() error {
 	// Write JSON bytes directly
 	_, err = file.Write(jsonBytes)
 	return err
+}
+
+func DecodeEvents(path string) error {
+	return nil
 }

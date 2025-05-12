@@ -11,6 +11,37 @@ import (
 func main() {
 	reader := bufio.NewReader(os.Stdin)
 
+	fmt.Print(`
+				Would you like to:
+				1. Create a new todo list
+				2. Load an existing todo list from a file
+				> `)
+	input, _ := reader.ReadString('\n')
+	input = strings.TrimSpace(input)
+
+	switch input {
+	case "1":
+		// Start fresh
+		todoMap = make(map[int]Event)
+		nextID = 1
+	case "2":
+		// Load from file
+		path := promptForFilePath()
+		err := DecodeEvents(path)
+		if err != nil {
+			fmt.Println("Failed to load events:", err)
+			return
+		}
+	default:
+		fmt.Println("Invalid selection. Exiting.")
+		return
+	}
+
+	CreateToDO()
+}
+func CreateToDO() {
+	reader := bufio.NewReader(os.Stdin)
+
 	for {
 		fmt.Print("Type 'create' to create new item, 'show' to show all items, 'edit' to update item, 'delete' to delete an item, 'exit' to quit: ")
 		input, _ := reader.ReadString('\n')
@@ -119,11 +150,23 @@ func main() {
 			fmt.Printf("Event with ID %d deleted.\n", id)
 
 		case "exit":
-			fmt.Println("Would you like to save file first? (y/n)")
+			fmt.Println("Would you like to save file first? (yes/no)")
+			idStr, _ := reader.ReadString('\n')
+			idStr = strings.TrimSpace(idStr)
+
+			if idStr == "yes" {
+				EncodeEvents()
+				fmt.Println("File created")
+			}
+			fmt.Println("Goodbye")
 
 		default:
 			fmt.Println("Not Valid entry. Please try again.")
 			continue
 		}
 	}
+}
+
+func promptForFilePath() string {
+	return "test"
 }
